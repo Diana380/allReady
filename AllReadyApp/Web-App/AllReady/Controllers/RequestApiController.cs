@@ -10,9 +10,7 @@ using AllReady.Features.Sms;
 
 namespace AllReady.Controllers
 {
-    //TODO mgmccarthy: use this route when token generation and TokenProtectedResource are sorted out
-    //[Route("api/request")]
-    [Route("api/requestapi")]
+    [Route("api/request")]
     [Produces("application/json")]
     public class RequestApiController : Controller
     {
@@ -39,10 +37,7 @@ namespace AllReady.Controllers
             {
                 return BadRequest();
             }
-
-            //TODO mgmccarthy: valiate the list of regions here for v1 launch that will allow us to determine if we can service the request or not
-            //this will be in the incoming field based on GASA's "assigned_rc_region" which is mapped to RequestApiViewModel.ProviderData on the incoming json request
-
+            
             //if we get here, the incoming request is already in our database with a matching ProviderId ("serial" field for getasmokealarm) and the request was sent with a status of "new"
             if (await mediator.SendAsync(new RequestExistsByProviderIdQuery { ProviderRequestId = viewModel.ProviderRequestId }))
             {
